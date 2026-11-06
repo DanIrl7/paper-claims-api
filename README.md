@@ -37,3 +37,18 @@ python -m pytest -v
 ```
 
 The tests use a separate temporary database for each test, so they never touch `claims.db`.
+
+## Run with Docker
+
+```bash
+docker build -t paper-claims-api .
+docker run --rm -p 8000:8000 -v claims-data:/data paper-claims-api
+```
+
+The API is then at http://127.0.0.1:8000/docs. The SQLite file lives in the `claims-data` volume, so data survives container restarts.
+
+To run the tests inside the image:
+
+```bash
+docker run --rm paper-claims-api python -m pytest -q
+```
